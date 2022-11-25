@@ -2,7 +2,7 @@ import express from "express"
 import AuthenticationCtrl from "./authentication.js"
 import QuizCtrl from "./quiz.js"
 import QuizCategoriesCtrl from "./quizCategories.js"
-import authRequired from "../middleware/AuthRequired.js"
+import authRequired from "../middleware/authRequired.js"
 import setUserMiddleware from "../middleware/setUser.js"
 import adminPath from "../middleware/adminPath.js"
 
