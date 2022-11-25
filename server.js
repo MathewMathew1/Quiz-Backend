@@ -10,6 +10,8 @@ import mongodb from "mongodb"
 import bodyParser from 'body-parser'
 import redis from "redis"
 
+console.log("Hello")
+
 const VARIABLES = {
     MIN_AMOUNT_REQUIRED_FOR_NEW_CATEGORY : 2
 }
@@ -96,7 +98,9 @@ const updateDataSendToUser = async () => {
     
 createNewCategories();   
 
-app.listen(3000)
+app.listen(port, () => {
+  console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
+})
 
 
 export default app
