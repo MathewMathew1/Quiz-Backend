@@ -22,6 +22,8 @@ const VARIABLES = {
     MIN_AMOUNT_REQUIRED_FOR_NEW_CATEGORY : 2
 }
 
+let env = process.env.NODE_ENV || 'development';
+
 export var categories = []
 
 const app = express()
@@ -29,7 +31,8 @@ app.use(cors())
 app.use(bodyParser.json());
 
 
-export const redisClient = redis.createClient();
+
+export const redisClient = env==='development'? redis.createClient(): redis.createClient({url: process.env.REDIS_URL});
 
 redisClient.on("error", function(error) {
   console.error(error);
