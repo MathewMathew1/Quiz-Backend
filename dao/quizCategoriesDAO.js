@@ -1,10 +1,8 @@
-
-
-let groupCategories
 import {categories} from "../server.js"
-
 import ImagesDao from './imagesDAO.js'
 import QuizDAO from './quizDAO.js'
+
+let groupCategories
 
 export default class QuizCategoriesDAO {
     static async injectDB(conn) {
