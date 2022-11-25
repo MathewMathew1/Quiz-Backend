@@ -9,14 +9,6 @@ import QuizCategoriesDAO from "./dao/quizCategoriesDAO.js"
 import mongodb from "mongodb"
 import bodyParser from 'body-parser'
 import redis from "redis"
-/*
-import mongoose from 'mongoose'
-import {GridFsStorage} from "multer-gridfs-storage"
-import multer from 'multer'
-import Grid from 'gridfs-stream'
-import crypto from 'crypto'
-import path from 'path';
-*/
 
 const VARIABLES = {
     MIN_AMOUNT_REQUIRED_FOR_NEW_CATEGORY : 2
@@ -41,47 +33,7 @@ redisClient.on("error", function(error) {
 redisClient.set("key", "value", redis.print);
 redisClient.get("key", redis.print);
 
-
-
 dotenv.config()
-
-/*const conn = mongoose.createConnection(process.env.RESTQUIZ_DB_URI);
-export let gfs;
-
-conn.once('open', () => {
-  // Init stream
-  gfs = Grid(conn.db, mongoose.mongo);
-  gfs.collection('uploads');
-}); connection to database needed during adding photos */
-
-/* const storage = new GridFsStorage({
-  url: process.env.RESTQUIZ_DB_URI,
-  file: (req, file) => {
-    console.log(file)
-    return new Promise((resolve, reject) => {
-      crypto.randomBytes(16, (err, buf) => {
-        if (err) {
-          return reject(err);
-        }
-        const filename = buf.toString('hex') + path.extname(file.originalname);
-        const fileInfo = {
-          filename: filename,
-          bucketName: 'uploads'
-        };
-        resolve(fileInfo);
-      });
-    });
-  }
-}); 
-const upload = multer({ storage });
-*/
-
-/*app.use('/upload', upload.single("image"), (req, res) => {
-    console.log(req)
-    res.json({ file: req.files });
-  }); adding image route
-  */ 
-
 
 app.use("/api/v1/", router)
 app.use("*", (req, res) => res.status(404).json({error: "Not found"}))
