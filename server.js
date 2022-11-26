@@ -60,7 +60,7 @@ await MongoClient.connect(
         await ImageDAO.injectDB(client)
         await QuizCategoriesDAO.injectDB(client)
         app.listen(port, () => {
-            console.log(`listening on port ${port}`)
+            console.log(`⚡️[server]: Server is running at https://localhost:${port}`)
         })
     })
 
@@ -98,9 +98,6 @@ const updateDataSendToUser = async () => {
     
 createNewCategories();   
 
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
-})
 
 
 export default app
