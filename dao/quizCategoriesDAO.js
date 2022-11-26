@@ -140,7 +140,6 @@ export default class QuizCategoriesDAO {
                 { categories: category },
                 {_id: 1}
             )
-            console.log(group)
             return group
         }
         catch(e){

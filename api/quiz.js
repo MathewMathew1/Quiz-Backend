@@ -1,5 +1,4 @@
 import {arrayContainsValue} from "../functions.js"
-import AuthenticationDAO from "../dao/authenticationDAO.js"
 import QuizDAO from "../dao/quizDAO.js"
 
 

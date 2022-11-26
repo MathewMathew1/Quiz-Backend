@@ -68,16 +68,16 @@ export default class AuthenticationDAO {
 
     static async setUser(req){
         try{
-            console.log("sdf")
+            
             const authHeader = req.headers["authorization"]
             const token = authHeader.split(' ')[1]
-            
-            console.log(token)
             if(token == null) return
             let id = await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-            
-            const userDb = await users.findOne({ '_id': {$eq: ObjectId(id)}},{username: 1})
-            console.log({userDb})
+
+            const userDb = await users.findOne({ '_id': {$eq: ObjectId(id)}}, {
+                projection: { password: 0 }
+            })
+     
             req.user = userDb
         } 
         catch(e){

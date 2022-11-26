@@ -60,7 +60,7 @@ export default class AuthenticationCtrl {
 
     static async apiFetchUserData(req, res, next){
         try{
-            console.log({user: req.user})
+            if(req.user === undefined) return res.status(401).json({status: "fail", error: "unauthorized"})
             return res.json({user: req.user}) 
         }
         catch (e) {

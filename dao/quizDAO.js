@@ -94,12 +94,12 @@ export default class QuizDAO {
             return editNewAnswerFromUser
         }
         catch (e) {
-            console.log
+            console.log(e)
             return { error: e }
         }
     }
 
-    static async getQuestion({filters = null, page = 0, questionsPerPage = 10, user = none} = {}){
+    static async getQuestion({filters = null, page = 0, questionsPerPage = 10, user = 0} = {}){
         try {
             
             let query
@@ -132,7 +132,6 @@ export default class QuizDAO {
             }
             
             let questionList
-            console.log(questionsPerPage * page) ///{ $sample: { size: questionsPerPage } },
             const pipeline = [
                 { $match: query },
                 skip,
@@ -244,13 +243,23 @@ export default class QuizDAO {
         }
     }
 
-    static async getOneCategoryUserQuizData(User, category){
+    static async getOneCategoryUserQuizData(user, category){
         try {
             let allQuestions = await quiz.find({category: category}).toArray()
+
+            if(user===undefined){
+                const dataFromCategory = {
+                    name:  category, 
+                    numberOfCorrectAnswers: 0, 
+                    numberOfBadAnswers: 0,
+                    numberOfAllQuestions: allQuestions.length  
+                }
+                return dataFromCategory
+            }
             let numberOfCorrectAnswers = 0
             let numberOfBadAnswers = 0
             for(let j=0; j<allQuestions.length; j++){
-                const result = allQuestions[j].answersFromUsers.find( ({ user }) => user.toString() === User._id.toString() )
+                const result = allQuestions[j].answersFromUsers.find( (question) => question.user.toString() === user._id.toString() )
                 if(result===undefined) continue
 
                 if(allQuestions[j].correctAnswer===result.answerFromUser){

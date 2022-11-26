@@ -76,28 +76,28 @@ export default class QuizCategoriesCtrl {
 
     static async apiGetUserQuizData(req, res, next){
         try{
-            let User = req.user
+            let user = req.user
             let category = req.query.category
             let response
             if(category === undefined){
-                let userQuizData = await QuizCategoriesDAO.getUserQuizData(User)
+                if(user===undefined) return res.status(401).json({status: "fail", error: "unauthorized"})
+                let userQuizData = await QuizCategoriesDAO.getUserQuizData(user)
                 response ={
                     userQuizData: userQuizData,
                 }
             }
             else{
                 let authors = await QuizDAO.getAllAuthorsFromCategory(category)
-                let QuizDataForUser = await QuizDAO.getOneCategoryUserQuizData(User, category)
+                let quizDataForUser = await QuizDAO.getOneCategoryUserQuizData(user, category)
                 let accuracyOfUsers = await QuizDAO.getOneCategoryUsersAccuracy(category)
-                QuizDataForUser["accuracyOfUsers"] = accuracyOfUsers
+                quizDataForUser["accuracyOfUsers"] = accuracyOfUsers
 
                 let groupOfCategory = await QuizCategoriesDAO.getCategoryGroupToWhichCategoryBelongs(category)
                 let image = await ImagesDao.getImageForOneCategory(groupOfCategory)
                 
-
                 response ={
                     authors: authors,
-                    QuizDataForUser: QuizDataForUser,
+                    quizDataForUser: quizDataForUser,
                     image: image,
                 }
             }

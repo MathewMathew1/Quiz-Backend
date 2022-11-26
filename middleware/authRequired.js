@@ -6,7 +6,7 @@ const authRequired = async (req, res, next) => {
     const user = req.user
 
     if (!user){
-        return res.status(401).json({status: "fail", message: "unauthorized"})
+        return res.status(401).json({status: "fail", error: "unauthorized"})
     }
     next()
 }
