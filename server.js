@@ -38,7 +38,7 @@ redisClient.get("key", redis.print);
 dotenv.config()
 
 app.use("/api/v1/", router)
-app.use("healthCheck", (req, res) => res.status(200).json({healthy: "Healthy"}))
+app.use("/healthCheck", (req, res) => res.status(200).json({healthy: "Healthy"}))
 app.use("*", (req, res) => res.status(404).json({error: "Not found"}))
 
 const MongoClient = mongodb.MongoClient
